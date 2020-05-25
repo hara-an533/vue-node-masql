@@ -1,0 +1,111 @@
+<form class="layui-form" action="">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择分类</label>
+
+
+        <div style="display: flex;">
+
+            <div class="layui-input-block" style="margin-left:0;">
+                <select name="c1id" lay-verify="required" id="class1" lay-filter="class1">
+                    <option value="">请选择一级分类</option>
+                    {{each res}}
+                    <option value="{{$value.id}}">{{$value.c1name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="layui-input-block" style="margin-left:0;">
+                <select name="c2id" lay-verify="required" id="class2">
+                    <option value="">请选择二级分类</option>
+                    {{each res}}
+                    <option value="{{$value.id}}">{{$value.c2name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">分类名</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">封面</label>
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" id="test1">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    //Demo
+    layui.use(['form', 'jquery', 'layer', 'upload'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        let layer = layui.layer;
+        var upload = layui.upload;
+
+        //执行上传实例
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            , url: 'admin/class3/upload' //上传接口
+
+            , done: function (res) {
+                if(res==1){
+                    layer.msg('上传成功')
+                }else {
+                    layer.msg('上传失败')
+                }
+            }
+            , error: function (res) {
+                layer.msg('上传失败')
+            }
+        });
+
+        form.on('select(class1)', function (data) {
+            //获取二级分类数据
+            if (data.value) {
+                $.get('admin/class3/getclass2', { c1id: data.value }, function (data) {
+                    console.log(data);
+
+                    $('#class2').html(data)
+                    form.render('select')
+                })
+            }
+        });
+
+        //渲染表单
+        form.render()
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            //   layer.msg(JSON.stringify(data.field));
+
+            $.get('admin/class3/addDo', data.field, function (res) {
+                if (res == 'success') {
+                    layer.msg('新增成功')
+                } else {
+                    layer.msg('新增失败')
+                }
+            })
+            return false;
+        });
+    });
+</script>

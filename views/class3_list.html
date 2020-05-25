@@ -1,0 +1,60 @@
+<table class="layui-table">
+    <colgroup>
+        <col width="150">
+        <col width="200">
+        <col width="200">
+        <col width="200">
+        <col width="200">
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>一级分类名称</th>
+            <th>二级分类名称</th>
+            <th>三级分类名</th>
+            <th>poster</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{each res}}
+        <tr>
+            <td>{{$value.id}}</td>
+            <td>{{$value.c1name}}</td>
+            <td>{{$value.c2name}}</td>
+            <td>{{$value.c3name}}</td>
+            <td><img src="upload/{{$value.poster}}" alt=""></td>
+            <td><a href="javascript:;" class="repair"></a>修改</a>｜<a href="javascript:;" class="delete"
+                    id="{{$value.id}}">删除</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script>
+    //Demo
+    layui.use(['form', 'jquery', 'layer'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        var layer = layui.layer
+
+        $('.delete').click(function () {
+            let id = $(this).attr('id')
+
+            // 删除
+            if (id) {
+                $.get('admin/class3/del', { id }, (res) => {
+                    if (res == 'success') {
+                        // 重载列表
+                        $("#showBody").load('admin/class3/list')
+                        // 提示
+                        layer.msg('删除成功')
+                    } else {
+                        layer.msg('删除失败')
+                    }
+                })
+            }
+        })
+    });
+</script>

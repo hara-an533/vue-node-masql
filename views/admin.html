@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>jd 后台管理</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">layui 后台布局</div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">控制台</a></li>
+                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="">用户</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">邮件管理</a></dd>
+                        <dd><a href="">消息管理</a></dd>
+                        <dd><a href="">授权管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        {{uname}}
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="admin/exit">退了</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">一级分类管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" id="class1_add">新增</a></dd>
+                            <dd><a href="javascript:;" id="class1_list">列表</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">二级分类管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" id="class2_add">新增</a></dd>
+                            <dd><a href="javascript:;" id="class2_list">列表</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">三级分类管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" id="class3_add">新增</a></dd>
+                            <dd><a href="javascript:;" id="class3_list">列表</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">产品管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" id="product_add">新增</a></dd>
+                            <dd><a href="javascript:;" id="product_list">列表</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">解决方案</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">列表一</a></dd>
+                            <dd><a href="javascript:;">列表二</a></dd>
+                            <dd><a href="">超链接</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="">用户管理</a></li>
+                    <li class="layui-nav-item"><a href="">订单管理</a></li>
+                    <li class="layui-nav-item"><a href="">产品图管理 管理</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div style="padding: 15px;" id="showBody">内容主体区域</div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © layui.com - 底部固定区域
+        </div>
+    </div>
+    <script>
+        //JavaScript代码区域
+        layui.use(['element', 'jquery'], function () {
+            var element = layui.element;
+            var $ = layui.jquery;
+
+            //载入一级分类的新增
+            $("#class1_add").click(function () {
+                $('#showBody').load('admin/class1/add')
+            })
+
+            $('#class1_list').click(function () {
+                $('#showBody').load('admin/class1/list')
+            })
+            //载入二级分类的新增
+            $("#class2_add").click(function () {
+                $('#showBody').load('admin/class2/add')
+            })
+
+            $('#class2_list').click(function () {
+                $('#showBody').load('admin/class2/list')
+            })
+            //载入三级分类的新增
+            $("#class3_add").click(function () {
+                $('#showBody').load('admin/class3/add')
+            })
+
+            $('#class3_list').click(function () {
+                $('#showBody').load('admin/class3/list')
+            })
+
+            //载入产品分类的新增
+            $("#product_add").click(function () {
+                $('#showBody').load('admin/product/add')
+            })
+
+            $('#product_list').click(function () {
+                $('#showBody').load('admin/product/list')
+            })
+
+        });
+    </script>
+</body>
+
+</html>
